@@ -150,7 +150,7 @@ public final class GambaScreen extends class_437 {
         context.method_27534(this.field_22793,
                 class_2561.method_43470("Einsatz: " + bet + " Münzen"),
                 this.field_22789 / 2, y + 101, 0xFFEBC8FF);
-        context.method_27534(this.field_22793, class_2561.method_43470("Nur 3er quer: 100–1000"),
+        context.method_27534(this.field_22793, class_2561.method_43470("2er +50  |  3er bis +1000"),
                 this.field_22789 / 2, y + 113, 0xFFEBC8FF);
         String lower = spinning ? "Dreht sich …" : (status.isEmpty() ? "Pfeile: ±1 · Rechtsklick: ±10" : status);
         context.method_27534(this.field_22793, class_2561.method_43470(lower), this.field_22789 / 2, y + 125,
@@ -216,8 +216,13 @@ public final class GambaScreen extends class_437 {
         context.method_27534(this.field_22793, text, x, y, color);
     }
 
-    private static int cellX(int gridX, int col) { return gridX + col * CELL; }
-    private static int cellY(int gridY, int row) { return gridY + row * CELL; }
+    private static int cellX(int gridX, int col) {
+        return gridX + col * CELL;
+    }
+
+    private static int cellY(int gridY, int row) {
+        return gridY + row * CELL;
+    }
 
     private static class_1792 randomSlotItem() {
         int roll = RANDOM.nextInt(100);
@@ -273,6 +278,8 @@ public final class GambaScreen extends class_437 {
             class_1792 c = reels[row * 3 + 2];
             if (a == b && b == c) {
                 winnings += threeOfAKindPayout(a);
+            } else if (a == b || a == c || b == c) {
+                winnings += 50;
             }
         }
         if (winnings > 0) {
@@ -307,14 +314,18 @@ public final class GambaScreen extends class_437 {
         long now = System.currentTimeMillis();
         chestEndAt = now + 1800;
         nextChestChangeAt = now;
-        for (int i = 0; i < chestRow.length; i++) chestRow[i] = randomJunkItem();
+        for (int i = 0; i < chestRow.length; i++) {
+            chestRow[i] = randomJunkItem();
+        }
         GambaClient.playSound(class_3417.field_14952, 0.9f);
     }
 
     private void finishChestOpen() {
         chestOpening = false;
         chestRevealed = true;
-        for (int i = 0; i < chestRow.length; i++) chestRow[i] = randomJunkItem();
+        for (int i = 0; i < chestRow.length; i++) {
+            chestRow[i] = randomJunkItem();
+        }
         if (chestPendingWin) {
             chestRow[4] = class_1802.field_8288;
             GambaClient.addCoins(500);
