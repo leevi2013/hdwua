@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "gambamod",
+  "version": "${version}",
+  "name": "Gamba Mod",
+  "description": "Eine pink-lila, inventarartige Gamba-GUI mit Slotsmaschine und Endertruhe.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.gambamod.client.GambaClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.2",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}
